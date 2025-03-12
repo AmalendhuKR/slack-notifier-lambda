@@ -5,16 +5,23 @@ import os
 # Add the parent directory (where app.py is) to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Now import the lambda_handler
+# Import the Lambda handler
 from app import handler
 
-# Load test event
+# Define path to test event JSON file
 event_file_path = os.path.join(os.path.dirname(__file__), "event.json")
 
-# Load the test event JSON file
-with open(event_file_path) as f:
-    test_event = json.load(f)
+# Load the test event JSON content
+with open(event_file_path, "r") as f:
+    event_payload = json.load(f)
 
-# Simulate Lambda execution
+# Simulate an API Gateway event format
+test_event = {
+    "body": json.dumps(event_payload)
+}
+
+# Run the handler with the test event
 response = handler(test_event, None)
-print(response)
+
+# Print the Lambda response
+print(json.dumps(response, indent=2))

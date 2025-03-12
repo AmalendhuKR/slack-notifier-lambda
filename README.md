@@ -21,6 +21,8 @@ pip install -r requirements.txt -t package/
 cp app.py package/
 cd package
 zip -r ../lambda.zip .
+//in windows
+Compress-Archive -Path package\* -DestinationPath lambda_function.zip
 cd ..
 ```
 
@@ -47,4 +49,10 @@ aws cloudformation create-stack --stack-name SlackNotifier \
 
 ```
 aws cloudformation delete-stack --stack-name SlackNotifierStack
+```
+
+### Local Testing
+
+```
+py ./test/local.py
 ```
